@@ -6,6 +6,8 @@ canvas.height = window.innerHeight;
 
 let staticStars = [];
 let shootingStars = [];
+const img = new Image();
+
 
 // Create static stars (non-twinkling)
 function createStaticStar() {
@@ -77,6 +79,16 @@ function updateShootingStars() {
   }
 }
 
+// Draw the image on the canvas
+function drawImage() {
+  const imgWidth = 200;  // Adjust width
+  const imgHeight = 200; // Adjust height
+  const xPos = canvas.width / 2 - imgWidth / 2; // Center horizontally
+  const yPos = canvas.height / 2 - imgHeight / 2; // Center vertically
+
+  ctx.drawImage(img, xPos, yPos, imgWidth, imgHeight); // Draw the image at center
+}
+
 // Animation loop
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -89,6 +101,11 @@ function animate() {
   
   // Update shooting stars
   updateShootingStars();
+
+  // Draw the image after stars
+  if (img.complete) { // Make sure the image is loaded
+    drawImage();
+  }
 
   // Occasionally create new shooting stars
   if (Math.random() < 0.03) {
@@ -106,6 +123,7 @@ for (let i = 0; i < 150; i++) { // Number of static stars
 // Start animation
 animate();
 
+// Handle window resizing
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;

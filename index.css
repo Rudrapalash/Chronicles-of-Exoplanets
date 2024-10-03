@@ -1,14 +1,133 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: black;
     overflow: hidden;
+    cursor: url(''), auto;
 }
 
-canvas{
+canvas {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+.Overlay-image {
+    display: flex;
+    position: absolute;
+    top: 250px;
+    left: 1100px;
+    opacity: 0; /* Initially hidden */
+    animation: fadein 1s forwards; /* 'forwards' to keep the final state */
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0; /* Completely transparent */
+    }
+    100% {
+        opacity: 1; /* Fully visible */
+    }
+}
+
+.container {
+    display: inline-block;
+    position: absolute;
+    background-color: rgba(99, 10, 151, 0.5);
+    border: 2px solid blue;
+    top: 350px;
+    left: 500px;
+    height: 300px;
+    width: 700px;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fadein 2s forwards;
+}
+
+/* For the first text */
+.text {
+    color: rgb(220, 220, 220);
+    font-size: x-large;
+    padding-top: 50px;
+    padding-left: 20px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0; /* Start with width 0 */
+    animation: typing1 3s steps(51, end) forwards; /* Modify steps to match the number of characters */
+}
+
+@keyframes typing1 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* For the second text */
+.tex1 {
+    color: rgb(220, 220, 220);
+    font-size: x-large;
+    padding-left: 20px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0; /* Start with width 0 */
+    animation: typing2 3s steps(46, end) forwards;
+    animation-delay: 3s; /* Delay for the previous text to finish */
+}
+
+@keyframes typing2 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* For the third text */
+.tex2 {
+    color: rgb(220, 220, 220);
+    font-size: x-large;
+    padding-left: 20px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0; /* Start with width 0 */
+    animation: typing3 3s steps(53, end) forwards;
+    animation-delay: 6s; /* Delay to ensure proper sequence */
+}
+
+@keyframes typing3 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Button animation */
+.container button {
+    position: absolute;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(99, 10, 151, 0.5);
+    color: rgb(255, 255, 255);
+    top: 180px;
+    left: 500px; 
+    border-radius: 10px;
+    font-size: large;
+    width: 100px;
+    height: 50px;
+    opacity: 0;
+    animation: fadein-button 2s forwards;
+    animation-delay: 10s; /* Delay the button appearance */
+}
+
+@keyframes fadein-button {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
