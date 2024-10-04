@@ -1,0 +1,158 @@
+/* Base styles remain the same */
+
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    cursor: url('./public/Cursor.png'), auto;
+    height: 100vh; /* vh is correct for height */
+}
+
+body {
+    background-color: black;
+    
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.mascot {
+    display: flex;
+    position: absolute;
+    top: 290px;
+    left:10px;
+    opacity: 0; /* Initially hidden */
+    animation: fadein 1s forwards; /* 'forwards' to keep the final state */
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0; /* Completely transparent */
+    }
+    100% {
+        opacity: 1; /* Fully visible */
+    }
+}
+
+.container {
+    display: inline-block;
+    position: absolute;
+    background-color: rgba(99, 10, 151, 0.5);
+    border: 2px solid blue;
+    top: 400px;
+    left: 450px;
+    height: 300px;
+    width: 1200px;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fadein 2s forwards;
+}
+
+.text, .tex1, .tex2, .tex3{
+    color: rgb(220, 220, 220);
+    font-size: x-large;
+    padding-left: 20px;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0ch;
+    
+    
+}
+
+.text {
+    padding-top: 50px;
+    animation: typing1 3s steps(106, end) forwards;
+}
+
+@keyframes typing1 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.tex1 {
+    animation: typing2 3s steps(94, end) forwards;
+    animation-delay: 3s;
+}
+
+@keyframes typing2 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.tex2 {
+    animation: typing3 3s steps(106, end) forwards;
+    animation-delay: 6s;
+}
+
+@keyframes typing3 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+.tex3{
+    animation: typing4 3s steps(61, end) forwards;
+    animation-delay: 9s;
+}
+
+@keyframes typing4 {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Button animation */
+.container button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(99, 10, 151, 0.5);
+    color: rgb(255, 255, 255);
+    top: 200px;
+    left: 800px;
+    border-radius: 10px;
+    font-size: large;
+    width: 300px;
+    height: 50px;
+    opacity: 0;
+    animation: fadein-button 2s forwards;
+    animation-delay: 10s;
+    cursor: url('./public/Cursor.png'), auto !important;
+}
+
+@keyframes fadein-button {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.container button a {
+    text-decoration: none;
+    cursor: url('./public/Cursor.png'), auto !important;
+}
+   
+    
+
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100vh;
+}
+
+
+
