@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronicles of Exoplanets</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #0d1b2a, #1b2631);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff; /* White text color for better contrast */
+            display: flex;
+            justify-content: flex-start; /* Align items to the left */
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            position: relative; /* For positioning content */
+            padding-left: 20px; /* Add some left padding */
+        }
+
+        #webgl {
+            display: block;
+            position: absolute; /* Ensures it covers the background */
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            z-index: -1; /* Send behind content */
+        }
+
+        .content {
+            position: relative; /* Position relative to body */
+            max-width: 400px;
+            padding: 30px; /* Increased padding around content */
+            background-color: rgba(27, 38, 49, 0.9); /* Darker semi-transparent background for better visibility */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7); /* Deeper shadow for more depth */
+            text-align: center; /* Center align text */
+            animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+            margin-left: 100px; /* Move content slightly more to the left */
+        }
+
+        h1 {
+            font-size: 32px; /* Increased font size for better visibility */
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.9); /* More prominent text shadow */
+        }
+
+        p {
+            font-size: 20px; /* Increased font size for better visibility */
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 10px; /* More rounded corners */
+            padding: 15px 25px; /* Increased padding */
+            font-size: 18px; /* Increased font size */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Add box-shadow transition */
+            margin: 5px; /* Margin between buttons */
+            animation: popIn 0.5s ease-in-out; /* Button pop-in animation */
+        }
+
+        button:hover {
+            background-color: #357ABD;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Shadow on hover */
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .content {
+                max-width: 90%; /* Adjust max-width */
+                padding: 15px; /* Less padding on smaller screens */
+                left: 5%;
+                top: 10%;
+                margin-left: 0; /* Reset left margin for mobile */
+            }
+            h1 {
+                font-size: 26px; /* Adjusted font size */
+            }
+            p {
+                font-size: 18px; /* Adjusted font size */
+            }
+            button {
+                width: 100%; /* Full-width buttons */
+                margin: 5px 0; /* Margin between buttons */
+            }
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="webgl"></canvas>
+    <div class="content">
+        <h1 id="title">Title Here</h1>
+        <p id="content">Content Here</p>
+        
+        <button id="next-slide">Next</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="./ch1chats.js"></script>
+</body>
+</html>
