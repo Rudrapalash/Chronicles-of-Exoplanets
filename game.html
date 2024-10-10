@@ -5,8 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="game.css">
     <title>Space Quiz Game</title>
+    <style>
+        /* Add styles for video background */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.7); /* Transparent background to make text more readable */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1.2em;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff9900;
+            transform: scale(1.05);
+        }
+
+        #score {
+            font-size: 2em;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video class="video-background" autoplay loop muted>
+        <source src="./public/videoplayback.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Main Container for the Space Quiz Game -->
     <div class="container">
         <h1>Space Quiz Game</h1>
         <div id="quiz-container">
@@ -16,6 +81,7 @@
         </div>
         <div id="score" class="hidden"></div>
     </div>
+
     <script src="game.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 let scene, camera, renderer, planet, stars, currentSlide = 0;
+let mouseX = 0, mouseY = 0;  // Track the mouse positions
 
 const slides = [
   {
@@ -9,7 +10,7 @@ const slides = [
   {
     title: "The Pioneer: 51 Pegasi b",
     content: "Discovered in 1995, 51 Pegasi b was the first exoplanet found orbiting a Sun-like star.",
-    action: () => createSinglePlanet('public/51.jpg', 4.0) // Ensure this path is correct
+    action: () => createSinglePlanet('public/51.jpg', 4.0)
   },
   {
     title: "How Do We Find Them?",
@@ -19,7 +20,7 @@ const slides = [
   {
     title: "Kepler's Quest",
     content: "The Kepler Space Telescope has discovered thousands of exoplanets.",
-    action: () => createKeplerScene() // Enhanced telescope
+    action: () => createKeplerScene()
   },
 ];
 
@@ -27,7 +28,7 @@ function init() {
   // Set up scene, camera, renderer
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 20; // Adjusted camera position if needed
+  camera.position.z = 20; 
 
   renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#webgl') });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -40,7 +41,13 @@ function init() {
 
   // Handle navigation
   document.getElementById('next-slide').addEventListener('click', nextSlide);
-  
+
+  // Add event listener for mouse movement
+  document.addEventListener('mousemove', onMouseMove);
+
+  // Add event listener for clicks to change star colors
+  document.addEventListener('click', onMouseClick);
+
   animate();
 }
 
@@ -61,9 +68,34 @@ function createStars() {
   scene.add(stars);
 }
 
+// Update stars rotation based on mouse movement
+function onMouseMove(event) {
+  mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+  mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
+function onMouseClick() {
+  const newColor = Math.random() * 0xffffff;
+  
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Rotate stars based on mouse position
+  stars.rotation.x += (mouseY * 0.05 - stars.rotation.x) * 0.1;
+  stars.rotation.y += (mouseX * 0.05 - stars.rotation.y) * 0.1;
+
+  if (planet) {
+    planet.rotation.y += 0.01;  // Rotate planet
+  }
+
+  renderer.render(scene, camera);
+}
+
 function createStarSystem() {
   if (planet) scene.remove(planet);
-  planet = createPlanet(4, 'public/texture1.jpg'); // Ensure this path is correct
+  planet = createPlanet(4, 'public/texture1.jpg'); 
 }
 
 function createSinglePlanet(textureURL, size) {
@@ -83,7 +115,7 @@ function createPlanet(size, textureURL) {
 function createKeplerScene() {
   if (planet) scene.remove(planet);
   
-  const kepler = new THREE.Group(); // Group to hold the entire telescope structure
+  const kepler = new THREE.Group();
   
   const bodyGeometry = new THREE.CylinderGeometry(1, 1, 5, 64);
   const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 0.8, roughness: 0.2 });
@@ -123,7 +155,6 @@ function createKeplerScene() {
   dish.rotation.x = -Math.PI / 2;
   kepler.add(dish);
 
-  // Lighting
   const light = new THREE.PointLight(0xffffff, 1, 100);
   light.position.set(5, 5, 5);
   scene.add(light);
@@ -137,28 +168,19 @@ function createKeplerScene() {
 }
 
 function showSlide(index) {
-  if (index < 0 || index >= slides.length) return; // Prevents out-of-bounds access
+  if (index < 0 || index >= slides.length) return;
   currentSlide = index;
   document.getElementById('title').textContent = slides[index].title;
   document.getElementById('content').textContent = slides[index].content;
 
-  // Remove any existing planets when showing the slide for "A Planetary Treasure Trove"
-  if (index === 4) { // Assuming index 4 is for "A Planetary Treasure Trove"
-    if (planet) {
-      scene.remove(planet);
-      planet = null; // Reset the planet variable
-    }
-  }
-
-  slides[index].action();  // Run the specific action for each slide
+  slides[index].action();
 }
 
 function nextSlide() {
   if (currentSlide < slides.length - 1) {
     showSlide(currentSlide + 1);
   } else {
-    // Redirect to a specific webpage when on the last slide
-    window.location.href = './game.html'; // Replace with your actual URL
+    window.location.href = './game.html';
   }
 }
 
@@ -168,50 +190,5 @@ function prevSlide() {
   }
 }
 
-function animate() {
-  requestAnimationFrame(animate);
-  stars.rotation.y += 0.001;  // Slight rotation for background stars
-
-  if (planet) {
-    planet.rotation.y += 0.01;  // Rotate planet
-  }
-
-  renderer.render(scene, camera);
-}
-
-function createMultiplePlanets() {
-  if (planet) scene.remove(planet);
-  
-  const trappistSystem = new THREE.Group(); // Group to hold the star and planets
-
-  const starGeometry = new THREE.SphereGeometry(2, 32, 32);
-  const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
-  const star = new THREE.Mesh(starGeometry, starMaterial);
-  trappistSystem.add(star);
-
-  const planetsData = [
-    { distance: 3.0, size: 0.8, color: 0xff4444 }, // 1st planet
-    { distance: 4.0, size: 0.7, color: 0x44ff44 }, // 2nd planet
-    { distance: 5.0, size: 0.9, color: 0x4444ff }, // 3rd planet
-    { distance: 6.0, size: 0.85, color: 0xff44ff }, // 4th planet
-  ];
-
-  planetsData.forEach((planetData, index) => {
-    const planetGeometry = new THREE.SphereGeometry(planetData.size, 32, 32);
-    const planetMaterial = new THREE.MeshBasicMaterial({ color: planetData.color });
-    const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
-    
-    const orbitRadius = planetData.distance;
-    planetMesh.position.x = orbitRadius; // Set initial position
-
-    // Create an orbiting effect
-    const orbitAngle = index * (Math.PI / 2); // Example spacing for orbits
-    planetMesh.rotation.y = orbitAngle;
-
-    trappistSystem.add(planetMesh);
-  });
-
-  scene.add(trappistSystem);
-}
-
 window.onload = init;
+    
